@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fltodoeyatodolistflutter/widgets/tasks_list.dart';
+import 'add_task_screen.dart';
+import 'package:fltodoeyatodolistflutter/models/task.dart';
+import 'package:fltodoeyatodolistflutter/widgets/tasks_list.dart';
+import 'package:provider/provider.dart';
+import 'package:fltodoeyatodolistflutter/models/task_data.dart';
 
 class TasksScreen extends StatelessWidget {
   @override
@@ -6,6 +12,12 @@ class TasksScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => AddTaskScreen(),
+          );
+        },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(
           Icons.add,
@@ -40,7 +52,7 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -64,29 +76,6 @@ class TasksScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class TasksList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        TaskTile(),
-        TaskTile(),
-        TaskTile(),
-      ],
-    );
-  }
-}
-
-class TaskTile extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text('This is a task'),
-      trailing: Checkbox(value: false, onChanged: null),
     );
   }
 }
